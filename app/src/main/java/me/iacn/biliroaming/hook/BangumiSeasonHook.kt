@@ -298,8 +298,11 @@ class BangumiSeasonHook(classLoader: ClassLoader) : BaseHook(classLoader) {
                         val mid = Uri.parse(url).getQueryParameter("vmid")
                         val code = body.getIntFieldOrNull("code")
                         if (code != 0) {
+                            Log.d("https://account.bilibili.com/api/member/getCardByMid?callback=userinfo&mid=" + mid)
                             val getUrlContent = getContent("https://account.bilibili.com/api/member/getCardByMid?callback=userinfo&mid=" + mid)
                             val code2 = getUrlContent?.toJSONObject()?.getIntFieldOrNull("code")
+                            Log.d("11111.0")
+                            Log.d(getUrlContent)
                             if (code2 != 0) {
                                 body.setObjectField(dataField,
                                     mid?.let { fixSpace(data, it, getUrlContent.toString()) })
@@ -401,12 +404,24 @@ class BangumiSeasonHook(classLoader: ClassLoader) : BaseHook(classLoader) {
 
     private fun fixSpace(data: Any?, mid: String, getUrlContent: String): Any? {
         instance.biliSpaceClass ?: return data
+        Log.d("11111.1")
+        Log.d(getUrlContent)
         val content = getUrlContent.toJSONObject().optJSONObject("card") ?: return data
         val name = content.optJSONObject("name")
+        Log.d("11111.2")
+        Log.d(name)
         val sex = content.optJSONObject("sex")
+        Log.d("11111.3")
+        Log.d(sex)
         val rank = content.optJSONObject("rank")
+        Log.d("11111.4")
+        Log.d(rank)
         val face = content.optJSONObject("face")
+        Log.d("11111.5")
+        Log.d(face)
         val sign = content.optJSONObject("sign")
+        Log.d("11111.6")
+        Log.d(sign)
         val current_level = content.optJSONObject("level_info")?.optJSONObject("current_level")
         val current_min = content.optJSONObject("level_info")?.optJSONObject("current_min")
         val current_exp = content.optJSONObject("level_info")?.optJSONObject("current_exp")
