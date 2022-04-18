@@ -302,7 +302,7 @@ class BangumiSeasonHook(classLoader: ClassLoader) : BaseHook(classLoader) {
                             val code2 = getUrlContent?.toJSONObject()?.getIntFieldOrNull("code")
                             if (code2 != 0) {
                                 body.setObjectField(dataField,
-                                    mid?.let { fixSpace(data, it, getUrlContent?.toString()) })
+                                    mid?.let { fixSpace(data, it, getUrlContent.toString()) })
                                 body.setIntField("code", 0)
                             }
                         }
